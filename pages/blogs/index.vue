@@ -58,7 +58,7 @@ function onNextPageClick() {
 }
 
 useHead({
-  title: 'Archive',
+  title: '归档',
   meta: [
     {
       name: 'description',

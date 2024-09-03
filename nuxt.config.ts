@@ -55,6 +55,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
     '@stefanobartoletti/nuxt-social-share',
+    'nuxt-icons'
   ],
 
   content: {

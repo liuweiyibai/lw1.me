@@ -1,10 +1,14 @@
 <script lang="ts" setup>
+import dayjs from 'dayjs';
+
 // Get Last 6 Publish Post from the content/blog directory
 const { data } = await useAsyncData('recent-post', () =>
   queryContent('/blogs').limit(3).sort({ _id: -1 }).find(),
 )
 
 const formattedData = computed(() => {
+
+  console.log(data.value)
   return data.value?.map((articles) => {
     return {
       path: articles._path,
@@ -13,7 +17,7 @@ const formattedData = computed(() => {
       image: articles.image || '/not-found.jpg',
       alt: articles.alt || 'no alter data available',
       ogImage: articles.ogImage || '/not-found.jpg',
-      date: articles.date || 'not-date-available',
+      date: articles.date ? dayjs(articles.date).format('YYYY-MM-DD'): 'not-date-available',
       tags: articles.tags || [],
       published: articles.published || false,
     }
@@ -33,11 +37,11 @@ useHead({
 </script>
 
 <template>
-  <div class="pb-10 px-4">
-    <div class="flex flex-row items-center space-x-3 pt-5 pb-3">
-      <Icon name="mdi:star-three-points-outline" size="2em" class="text-black dark:text-zinc-300  " />
-      <h2 class="text-4xl font-semibold text-black dark:text-zinc-300   ">
-        Recent Post
+  <div class="px-4 pb-10">
+    <div class="flex flex-row items-center pt-5 pb-3 space-x-3">
+      <Icon name="mdi:star-three-points-outline" size="2em" class="text-black transition-all dark:text-zinc-300 hover:rotate-180" />
+      <h2 class="text-4xl font-semibold text-black dark:text-zinc-300 ">
+        最近更新
       </h2>
     </div>
 

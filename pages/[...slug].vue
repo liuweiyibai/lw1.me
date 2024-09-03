@@ -4,7 +4,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Page not found',
+      content: '找不到页面啦',
     },
   ],
 })
@@ -12,13 +12,13 @@ useHead({
 defineOgImageComponent('About', {
   headline: 'Wrong Path',
   title: '404',
-  description: 'Page Not Found',
+  description: '找不到页面啦',
 })
 </script>
 
 <template>
   <div class="py-5">
-    <div class="container max-w-xl   mx-auto">
+    <div class="container max-w-xl mx-auto">
       <Logo404 />
     </div>
   </div>

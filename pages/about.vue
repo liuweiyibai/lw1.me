@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { aboutPage, footerData, navbarData } from '~/data'
 
+// import AvatarSvg from '~/assets/icons/avatar.svg'
 useHead({
   title: 'About',
   meta: [
@@ -30,65 +31,88 @@ defineOgImageComponent('About', {
             </h1>
 
             <div class="my-3 space-x-2 md:space-x-3 pb-10">
-              <NuxtLink
-                to="https://github.com/nurRiyad"
-                target="_blank"
+              <NuxtLink to="https://github.com/nurRiyad" target="_blank"
                 class="px-2 py-1 lg:px-3 lg:py-2 bg-gray-300 text-gray-800 rounded-md dark:bg-slate-700 dark:text-[#F1F2F4]"
-                aria-label="Github"
-              >
+                aria-label="Github">
                 <Icon name="fa:github" size="1em" />
               </NuxtLink>
-              <NuxtLink
-                to="https://www.linkedin.com/in/nur-riyad/"
-                target="_blank"
+              <NuxtLink to="https://www.linkedin.com/in/nur-riyad/" target="_blank"
                 class="px-2 py-1 lg:px-3 lg:py-2 bg-gray-300 text-gray-800 rounded-md dark:bg-slate-700 dark:text-[#F1F2F4]"
-                aria-label="LinkedIn"
-              >
+                aria-label="LinkedIn">
                 <Icon name="fa:linkedin-square" size="1em" />
               </NuxtLink>
-              <NuxtLink
-                to="https://twitter.com/qdnvubp"
-                target="_blank"
+              <NuxtLink to="https://twitter.com/qdnvubp" target="_blank"
                 class="px-2 py-1 lg:px-3 lg:py-2 bg-gray-300 text-gray-800 rounded-md dark:bg-slate-700 dark:text-[#F1F2F4]"
-                aria-label="Twitter"
-              >
+                aria-label="Twitter">
                 <Icon name="fa:twitter-square" size="1em" />
               </NuxtLink>
-              <NuxtLink
-                to="https://stackoverflow.com/users/16781395/nur-riyad"
-                target="_blank"
+              <NuxtLink to="https://stackoverflow.com/users/16781395/nur-riyad" target="_blank"
                 class="px-2 py-1 lg:px-3 lg:py-2 bg-gray-300 text-gray-800 rounded-md dark:bg-slate-700 dark:text-[#F1F2F4]"
-                aria-label="StackOverflow"
-              >
+                aria-label="StackOverflow">
                 <Icon name="fa:stack-overflow" size="1em" />
               </NuxtLink>
             </div>
           </div>
-          <div class="sm:hidden block col-span-3 pb-5 dark:text-[#F1F2F4]">
-            <NuxtImg
-              src="/riyad.jpg"
-              width="125"
-              height="115"
-              quality="50"
-              class="rounded-md"
-            />
+          <div class="sm:hidden block col-span-3 pb-5 dark:text-[#F1F2F4] avatar-box">
+            <div class="rounded-md avatar-box avatar-rotate">
+              <nuxt-icon name="avatar" filled />
+            </div>
           </div>
         </div>
         <h3 class="text-base sm:text-3xl font-semibold pb-7 sm:pb-12">
           {{ aboutPage.description }}
         </h3>
-
         <p>{{ aboutPage.aboutMe }}</p>
       </div>
       <div class="hidden sm:block col-span-3">
-        <NuxtImg
-          src="/riyad.jpg"
-          width="450"
-          height="500"
-          quality="50"
-          class="rounded-md"
-        />
+        <div class="rounded-md avatar-box avatar-rotate">
+          <nuxt-icon name="avatar" filled />
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.avatar-box {
+  overflow: hidden;
+  border-radius: 50%;
+  @keyframes spin-avatar {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes huorotate {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+
+    50% {
+      filter: hue-rotate(360deg);
+    }
+  }
+  &.avatar-rotate {
+    svg {
+      width: 100%;
+      height: 100%;
+      transition: all 0.3s;
+      transition-timing-function: ease;
+
+      &:hover {
+        animation: huorotate 10s infinite;
+      }
+
+      polygon {
+        animation: spin-avatar 8s linear infinite;
+        transform-origin: 50% 50%;
+        &:nth-child(2) {
+          animation-direction: reverse;
+        }
+      }
+    }
+  }
+}
+</style>

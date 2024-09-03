@@ -19,7 +19,7 @@
     "@nuxtjs/robots": "^3.0.0",
     "@nuxtjs/sitemap": "^5.3.2",
     "@nuxtjs/tailwindcss": "^6.11.4",
-    "@stefanobartoletti/nuxt-social-share": "^0.6.1",
+    "@stefanobartoletti/nuxt-social-share": "^1.0.0",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "@vueuse/core": "^10.9.0",
@@ -30,5 +30,11 @@
     "nuxt-og-image": "^3.0.0-rc.38",
     "typescript": "^5.3.3",
     "vue-content-loader": "^2.0.1"
+  },
+  "dependencies": {
+    "@types/lowdb": "^1.0.15",
+    "dayjs": "^1.11.12",
+    "lowdb": "^7.0.1",
+    "nuxt-icons": "^3.2.1"
   }
 }
