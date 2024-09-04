@@ -35,6 +35,7 @@
     "@types/lowdb": "^1.0.15",
     "dayjs": "^1.11.12",
     "lowdb": "^7.0.1",
+    "notivue": "^2.4.5",
     "nuxt-icons": "^3.2.1"
   }
 }

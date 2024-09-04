@@ -1,65 +1,24 @@
-<!-- <script setup lang="ts">
-defineProps({
-  code: {
-    type: String,
-    default: '',
-  },
-  language: {
-    type: String,
-    default: null,
-  },
-  filename: {
-    type: String,
-    default: null,
-  },
-  highlights: {
-    type: Array as () => number[],
-    default: () => [],
-  },
-  meta: {
-    type: String,
-    default: null,
-  },
-})
-</script>
-
 <template>
-  <div>
+  <div class="relative overflow-hidden bg-[var(--tw-prose-pre-bg)] rounded-md">
+    <div class="box-border flex items-start justify-between px-4">
+      <span v-if="filename" class="mt-1 font-mono text-base text-white">
+        {{ filename }}
+      </span>
+      <span v-if="languageText" :style="{ background: languageBackground!, color: languageColor! }"
+        class="px-2 py-1 text-sm leading-3 uppercase rounded-b">
+        {{ languageText }}
+      </span>
+    </div>
     <slot />
-  </div>
-</template>
-
-<style>
-pre code .line {
-  display: block;
-  min-height: 1rem;
-}
-</style> -->
-
-<template>
-  <div class="container">
-    <span v-if="filename" class="filename-text">
-      {{ filename }}
-    </span>
-    <span
-      v-if="languageText"
-      :style="{ background: languageBackground, color: languageColor }"
-      class="language-text"
-    >
-      {{ languageText }}
-    </span>
-    <slot />
-    <div class="bottom-container">
-      <div class="copy-container">
-        <span class="copied-text" v-if="copied">Copied code!</span>
-        <button @click="copy(code)">Copy Code</button>
-      </div>
+    <div class="flex justify-end ">
+      <button @click="copy(code)" class="px-2 py-1 mb-1 mr-1 text-xs text-white rounded hover:bg-[#343848]">复制</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core';
+import { push } from 'notivue'
 
 const { copy, copied, text } = useClipboard();
 
@@ -70,7 +29,7 @@ const props = withDefaults(
     filename?: string | null;
     highlights?: Array<number>;
   }>(),
-  { code: '', language: null, filename: null, highlights: ()=>[] }
+  { code: '', language: null, filename: null, highlights: () => [] }
 );
 
 const languageMap: Record<
@@ -167,6 +126,11 @@ const languageMap: Record<
     background: '#89e051',
     color: 'black',
   },
+  bash: {
+    text: 'shell',
+    background: '#89e051',
+    color: 'black',
+  },
   sql: {
     text: 'sql',
     background: '#e38c00',
@@ -193,53 +157,15 @@ const languageBackground = computed(() =>
 const languageColor = computed(() =>
   props.language ? languageMap[props.language]?.color : null
 );
+
+watch(() => copied.value, (value) => {
+  if (value) {
+    push.success('复制成功')
+  }
+})
 </script>
 
 <style scoped lang="scss">
-.container {
-  background: #1e1e1e;
-  position: relative;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-top: 1em;
-  overflow: hidden;
-  border-radius: 0.5rem;
-  .language-text  {
-  position: absolute;
-  top: 0;
-  right: 1em;
-  padding: 0.25em 0.5em;
-  font-size: 14px;
-  text-transform: uppercase;
-  border-bottom-right-radius: 0.25em;
-  border-bottom-left-radius: 0.25em;
-}
-}
-
-.bottom-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.copy-container {
-  display: flex;
-}
-
-.copied-text {
-  margin-right: 1em;
-}
-
-.filename-text  {
-  position: absolute;
-  top: 0;
-  left: 1em;
-  padding: 0.25em 0.5em;
-  color: white;
-  font-size: 14px;
-}
-
-
-
 :slotted(pre) {
   margin-top: 0;
   margin-bottom: 0;

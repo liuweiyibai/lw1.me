@@ -55,7 +55,12 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
     '@stefanobartoletti/nuxt-social-share',
-    'nuxt-icons'
+    'nuxt-icons',
+    'notivue/nuxt'
+  ],
+  css: [
+    'notivue/notification.css', // Only needed if using built-in notifications
+    'notivue/animations.css' // Only needed if using built-in animations
   ],
 
   content: {
