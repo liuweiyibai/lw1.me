@@ -10,9 +10,7 @@
     <footer>
       <MainFooter />
     </footer>
-    <Notivue v-slot="item">
-      <Notification :item="item" />
-    </Notivue>
+
   </div>
 </template>
 

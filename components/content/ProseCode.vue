@@ -1,6 +1,6 @@
 <template>
-  <div class="relative overflow-hidden bg-[var(--tw-prose-pre-bg)] rounded-md">
-    <div class="box-border flex items-start justify-between px-4">
+  <div class="relative overflow-hidden bg-[var(--tw-prose-pre-bg)] rounded-md group">
+    <div class="box-border flex items-start justify-between px-4" v-if="filename || languageText">
       <span v-if="filename" class="mt-1 font-mono text-base text-white">
         {{ filename }}
       </span>
@@ -11,16 +11,16 @@
     </div>
     <slot />
     <div class="flex justify-end ">
-      <button @click="copy(code)" class="px-2 py-1 mb-1 mr-1 text-xs text-white rounded hover:bg-[#343848]">复制</button>
+      <div class="px-2 mb-1 mr-[1px] text-xs text-white rounded bg-[#343848] py-1" v-if="copied">复制成功</div>
+      <button @click="copy(code)"
+        class="transition-opacity opacity-0  px-2 py-1 mb-1 mr-1 text-xs text-white rounded hover:bg-[#343848] group-hover:opacity-100">复制</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core';
-import { push } from 'notivue'
-
-const { copy, copied, text } = useClipboard();
+const { copy, copied } = useClipboard();
 
 const props = withDefaults(
   defineProps<{
@@ -158,11 +158,7 @@ const languageColor = computed(() =>
   props.language ? languageMap[props.language]?.color : null
 );
 
-watch(() => copied.value, (value) => {
-  if (value) {
-    push.success('复制成功')
-  }
-})
+
 </script>
 
 <style scoped lang="scss">
@@ -175,6 +171,22 @@ watch(() => copied.value, (value) => {
   padding: 1rem;
   line-height: 1.625;
   counter-reset: lines;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.34);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.22);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #4e4e4e;
+    border-radius: 6px;
+  }
 }
 
 :slotted(pre code) {
